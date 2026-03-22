@@ -3,7 +3,7 @@ import path from 'node:path'
 import crypto from 'node:crypto'
 
 const TMP_FOLDER = path.resolve(__dirname, '..', '..', 'tmp')
-const UPLOADS_FOLDER = path.relative(TMP_FOLDER, 'uploads')
+const UPLOADS_FOLDER = path.resolve(TMP_FOLDER, 'uploads')
 
 // 1KB = 1024 bytes
 const MAX_SIZE = 3 // 3MB
