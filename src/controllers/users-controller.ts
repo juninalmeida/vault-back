@@ -1,5 +1,8 @@
 import { Request, Response } from 'express'
 import { UserRole } from '@prisma/client'
+import { prisma } from '@/database/prisma'
+import { AppError } from '@/utils/app-error'
+import { hash } from 'bcrypt'
 import { z } from 'zod'
 
 class UsersController {
@@ -27,7 +30,24 @@ class UsersController {
 
     const { name, email, password, role } = bodySchema.parse(request.body)
 
-    response.json({ name, email, password, role })
+    const userWithSameEmail = await prisma.user.findFirst({ where: { email } })
+
+    if (userWithSameEmail) {
+      throw new AppError('A user with this email already exists', 400)
+    }
+
+    const hashedPassword = await hash(password, 8)
+
+    await prisma.user.create({
+      data: {
+        name,
+        email,
+        password: hashedPassword,
+        role,
+      },
+    })
+
+    response.status(201)
   }
 }
 
