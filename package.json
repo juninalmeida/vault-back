@@ -2,8 +2,10 @@
   "name": "vault-back",
   "version": "0.1.0",
   "description": "refund system",
-  "main": "index.js",
-  "scripts": {},
+  "main": "src/server.ts",
+  "scripts": {
+    "dev": "tsx watch src/server.ts"
+  },
   "author": "Horácio Júnior",
   "license": "ISC",
   "dependencies": {
