@@ -3,3 +3,4 @@ docs
 dist
 .env
 *.log
+DOCUMENTACAO.md
